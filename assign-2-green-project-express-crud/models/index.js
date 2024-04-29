@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
-const Plant = require('./plant');
-const CareGiver = require('./careGiver');
+const initPlant = require('./plant');
+const initCareGiver = require('./careGiver');
 
 const sequelize = new Sequelize('green_project', 'dyno', 'password', {
   host: 'localhost',
@@ -8,11 +8,11 @@ const sequelize = new Sequelize('green_project', 'dyno', 'password', {
 });
 
 // Initialize models
-Plant(sequelize);
-CareGiver(sequelize);
+const Plant = initPlant(sequelize);
+const CareGiver = initCareGiver(sequelize);
 
 // Establishing relationships
-Plant.belongsTo(CareGiver, { foreignKey: 'careGiverId' }); // one to many
-CareGiver.hasMany(Plant, { foreignKey: 'careGiverId' });
+Plant.belongsTo(CareGiver, { foreignKey: 'careGiverId' }); // Plant is the many in one-to-many relationship
+CareGiver.hasMany(Plant, { foreignKey: 'careGiverId' }); // CareGiver is the one in one-to-many relationship
 
 module.exports = { sequelize, Plant, CareGiver };

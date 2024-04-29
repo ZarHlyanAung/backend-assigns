@@ -1,24 +1,19 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('.');
 
-const CareGiver = sequelize.define('CareGiver', {
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
+module.exports = (sequelize) => {
+  return sequelize.define('CareGiver', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { notEmpty: true },
     },
-  },
-  phoneNumber: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      is: /^[\d\s+()-]+$/i,
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { is: /^[\d\s+()-]+$/i },
     },
-  },
-});
-
-module.exports = CareGiver;
+  });
+};
 
 // ^[\d\s+()-]+$/i
 
